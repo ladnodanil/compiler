@@ -139,6 +139,8 @@
             // dataGridView1
             // 
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -148,32 +150,38 @@
             this.Column4,
             this.Column5});
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             // 
             // Column1
             // 
             resources.ApplyResources(this.Column1, "Column1");
             this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
             // 
             // Column2
             // 
             resources.ApplyResources(this.Column2, "Column2");
             this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // Column3
             // 
             resources.ApplyResources(this.Column3, "Column3");
             this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // Column4
             // 
             resources.ApplyResources(this.Column4, "Column4");
             this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // Column5
             // 
             resources.ApplyResources(this.Column5, "Column5");
             this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
             // 
             // toolStrip1
             // 
@@ -257,6 +265,7 @@
             resources.ApplyResources(this.toolStripButton9, "toolStripButton9");
             this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton9.Name = "toolStripButton9";
+            this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
             // 
             // helpToolStripButton
             // 
@@ -524,7 +533,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
-            
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

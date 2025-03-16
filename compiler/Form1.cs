@@ -19,6 +19,7 @@ namespace compiler
 {
     public partial class Form1 : Form
     {
+        private Lexer Lexer;
         public Form1()
         {
             InitializeComponent();
@@ -56,11 +57,11 @@ namespace compiler
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                e.Effect = DragDropEffects.Copy; // Меняем иконку курсора на "копирование"
+                e.Effect = DragDropEffects.Copy; 
             }
             else
             {
-                e.Effect = DragDropEffects.None; // Запрещаем перетаскивание
+                e.Effect = DragDropEffects.None; 
             }
         }
 
@@ -72,9 +73,9 @@ namespace compiler
 
                 foreach (string file in files)
                 {
-                    if (Path.GetExtension(file).Equals(".txt", StringComparison.OrdinalIgnoreCase)) // Проверяем, что это текстовый файл
+                    if (Path.GetExtension(file).Equals(".txt", StringComparison.OrdinalIgnoreCase)) 
                     {
-                        AddPage(file); // Открываем файл в новой вкладке
+                        AddPage(file); 
                     }
                     else
                     {
@@ -113,7 +114,6 @@ namespace compiler
 
                 try
                 {
-                    // Создаём пустой файл
                     File.WriteAllText(filename, string.Empty);
                     AddPage(filename);
 
@@ -134,7 +134,7 @@ namespace compiler
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string filename = openFileDialog1.FileName;
-                AddPage(filename); // Открываем файл в новой вкладке
+                AddPage(filename); 
             }
         }
 
@@ -149,7 +149,7 @@ namespace compiler
 
             int fontSize = Properties.Settings.Default.FontSize;
 
-            // Поле для нумерации строк
+
             RichTextBox lineNumbersBox = new RichTextBox
             {
                 ReadOnly = true,
@@ -162,7 +162,7 @@ namespace compiler
                 Tag = "LineNumbers"
             };
 
-            // Основное текстовое поле
+           
             RichTextBox richTextBox = new RichTextBox
             {
                 Dock = DockStyle.Fill,
@@ -171,24 +171,23 @@ namespace compiler
                 Tag = "Editor",
             };
 
-            // Обработчики для обновления нумерации строк
             richTextBox.VScroll += (s, e) => UpdateLineNumbers(richTextBox, lineNumbersBox);
             richTextBox.TextChanged += (s, e) => UpdateLineNumbers(richTextBox, lineNumbersBox);
             richTextBox.SelectionChanged += (s, e) => UpdateLineNumbers(richTextBox, lineNumbersBox);
+           
 
-            // Добавляем в панель
             panel.Controls.Add(richTextBox);
             panel.Controls.Add(lineNumbersBox);
 
-            // Добавляем на вкладку
             tabPage.Controls.Add(panel);
             tabControl1.TabPages.Add(tabPage);
             tabControl1.SelectedTab = tabPage;
 
-            // Обновляем нумерацию строк
+
             UpdateLineNumbers(richTextBox, lineNumbersBox);
         }
 
+        
 
         private void Undo()
         {
@@ -296,10 +295,8 @@ namespace compiler
                         {
                             File.WriteAllText(filename, richTextBox.Text);
 
-                            // Обновляем путь к файлу в Tag вкладки
                             tabControl1.SelectedTab.Tag = filename;
 
-                            // Обновляем заголовок вкладки
                             tabControl1.SelectedTab.Text = Path.GetFileName(filename);
 
                             MessageBox.Show("Файл успешно сохранён!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -320,7 +317,7 @@ namespace compiler
                 RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
                 if (richTextBox != null && richTextBox.SelectedText.Length > 0)
                 {
-                    richTextBox.SelectedText = ""; // Заменяем выделенный текст на пустую строку
+                    richTextBox.SelectedText = "";
                 }
             }
         }
@@ -507,7 +504,7 @@ namespace compiler
         }
         public void ApplySettings()
         {
-            ApplyFontSizeToAll(); // Применяем новый размер шрифта ко всем вкладкам
+            ApplyFontSizeToAll();
             ChangeLanguage(Properties.Settings.Default.Language);
         }
 
@@ -540,7 +537,7 @@ namespace compiler
             Process.Start(new ProcessStartInfo
             {
                 FileName = filePath,
-                UseShellExecute = true // Использует программу по умолчанию для открытия файла
+                UseShellExecute = true 
             });
         }
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -551,8 +548,32 @@ namespace compiler
         private void helpToolStripButton_Click(object sender, EventArgs e)
         {
             Help();
+            Dictionary<int, string> My=new Dictionary<int, string>();
         }
 
-        
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Сохрнаить перд выходом все изменения в файле?","Внимание",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                foreach (var tabPage in tabControl1.TabPages)
+                {
+                    SaveFile();
+                }
+            }
+        }
+
+        private void toolStripButton9_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab != null)
+            {
+                RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
+                Lexer scanner = new Lexer(richTextBox.Text);
+                dataGridView1.DataSource = null;
+                dataGridView1.Columns.Clear();
+                dataGridView1.DataSource = scanner.Analyze();
+                
+            }
+        }
     }
 }
