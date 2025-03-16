@@ -33,7 +33,7 @@ Dictionary<int, string> My_dict1 =                        new Dictionary<int, st
 # Примеры допустимых строк
 ```c#
 // пример варианта
-Dictionary<int, string> My_dict1 =                        new Dictionary<int, string>();
+Dictionary<int, string> My_dict1 = new Dictionary<int, string>();
 // без пробелов
 Dictionary<int,int>LOLOL=new Dictionary<int,int>();
 // c отступами
@@ -58,4 +58,4 @@ int
 ;
 ```
 # Диаграмма состояний сканера
-![]()
+![](https://github.com/ladnodanil/compiler/img/diagramm)
