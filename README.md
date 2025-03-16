@@ -27,7 +27,7 @@ _____
 
 Пример верной строки
 ```c#
-Dictionary<int, string> My_dict1 =                        new Dictionary<int, string>();
+Dictionary<int, string> My_dict1 = new Dictionary<int, string>();
 
 ```
 # Примеры допустимых строк
