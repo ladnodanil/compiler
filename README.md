@@ -60,4 +60,9 @@ int
 # Диаграмма состояний сканера
 ![diagram](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/diagramm.png)
 
+
 # Тестовые примеры
+![scren1](icon\scren1.png)
+
+
+![scren1](icon\scren1.png)

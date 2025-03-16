@@ -84,6 +84,10 @@ namespace compiler
                         {
                             status = 9;
                         }
+                        else
+                        {
+                            status = 10;
+                        }
                         break;
                     case 1:
                         if (char.IsLetterOrDigit(CodeText[pos]) || CodeText[pos] == '_')
@@ -167,10 +171,13 @@ namespace compiler
                         status = 0;
                         pos++;
                         break;
-                    default:
+                    case 10:
                         data.Rows.Add(666, "недопустимый символ", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
+                        break;
+                    default:
+                        
                         break;
                 }
                 
