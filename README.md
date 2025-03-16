@@ -58,5 +58,6 @@ int
 ;
 ```
 # Диаграмма состояний сканера
-![diagram](https://github.com//ladnodanil/compiler/blob/master/compiler/img/diagramm.png)
+![diagram](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/diagramm.png)
+
 # Тестовые примеры
