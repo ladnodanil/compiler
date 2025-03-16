@@ -59,3 +59,4 @@ int
 ```
 # Диаграмма состояний сканера
 ![](https://github.com/ladnodanil/compiler/img/diagramm)
+# Тестовые примеры
