@@ -82,10 +82,6 @@ namespace compiler
                         }
                         else if (CodeText[pos] == '=')
                         {
-                            status = 10;
-                        }
-                        else
-                        {
                             status = 9;
                         }
                         break;
@@ -132,51 +128,49 @@ namespace compiler
 
                         break;
                     case 2:
-                        data.Rows.Add(5, "разделитель", "пробел", $"с {pos + 1} по {pos + 1}");
+                        data.Rows.Add(6, "разделитель", "пробел", $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
                         break;
                     case 3:
-                        data.Rows.Add(6, "оператор сравнения", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
-                        status = 0;
-                        pos++;
-                        break;
-                    case 4:
                         data.Rows.Add(7, "оператор сравнения", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
                         break;
+                    case 4:
+                        data.Rows.Add(8, "оператор сравнения", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
+                        status = 0;
+                        pos++;
+                        break;
                     case 5:
-                        data.Rows.Add(8, "разделитель", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
+                        data.Rows.Add(9, "круглая скобка", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
                         break;
                     case 6:
-                        data.Rows.Add(9, "разделитель", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
+                        data.Rows.Add(10, "круглая скобка", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
                         break;
                     case 7:
-                        data.Rows.Add(10, "запятая", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
+                        data.Rows.Add(11, "запятая", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
                         break;
                     case 8:
-                        data.Rows.Add(11, "конец оператора", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
+                        data.Rows.Add(12, "конец оператора", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
                         break;
                     case 9:
-                        data.Rows.Add(555, "недопустимый символ", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
-                        status = 0;
-                        pos++;
-                        break;
-                    case 10:
-                        data.Rows.Add(12, "оператор присваивания", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
+                        data.Rows.Add(13, "оператор присваивания", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
                         status = 0;
                         pos++;
                         break;
                     default:
+                        data.Rows.Add(666, "недопустимый символ", CodeText[pos].ToString(), $"с {pos + 1} по {pos + 1}");
+                        status = 0;
+                        pos++;
                         break;
                 }
                 
