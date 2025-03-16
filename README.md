@@ -62,7 +62,8 @@ int
 
 
 # Тестовые примеры
-![scren1](icon\scren1.png)
+![scren1](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/scren1.png)
 
 
-![scren1](icon\scren1.png)
+
+![scren2](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/scren2.png)
