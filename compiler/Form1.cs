@@ -43,6 +43,7 @@ namespace compiler
             else if (e.Control && e.KeyCode == Keys.O)
             {
                 OpenFile();
+                
             }
         }
 
