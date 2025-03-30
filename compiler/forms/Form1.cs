@@ -90,15 +90,13 @@ namespace compiler
         {
             if (richTextBox == null || lineNumbersBox == null) return;
 
-            int firstIndex = richTextBox.GetCharIndexFromPosition(new Point(0, 0));
-            int firstLine = richTextBox.GetLineFromCharIndex(firstIndex);
-
-            int lastIndex = richTextBox.GetCharIndexFromPosition(new Point(0, richTextBox.Height));
-            int lastLine = richTextBox.GetLineFromCharIndex(lastIndex);
+            int firstLine = richTextBox.GetLineFromCharIndex(0);  // Получаем первую строку
+            int lastLine = richTextBox.GetLineFromCharIndex(richTextBox.TextLength);  // Получаем последнюю строку
 
             lineNumbersBox.Clear();
             for (int i = firstLine; i <= lastLine; i++)
             {
+                // Печатаем номер строки
                 lineNumbersBox.AppendText((i + 1) + Environment.NewLine);
             }
         }
@@ -175,7 +173,8 @@ namespace compiler
             richTextBox.VScroll += (s, e) => UpdateLineNumbers(richTextBox, lineNumbersBox);
             richTextBox.TextChanged += (s, e) => UpdateLineNumbers(richTextBox, lineNumbersBox);
             richTextBox.SelectionChanged += (s, e) => UpdateLineNumbers(richTextBox, lineNumbersBox);
-           
+            richTextBox.MouseWheel += RichTextBox_MouseWheel;
+            lineNumbersBox.MouseWheel += RichTextBox_MouseWheel;
 
             panel.Controls.Add(richTextBox);
             panel.Controls.Add(lineNumbersBox);
@@ -188,7 +187,14 @@ namespace compiler
             UpdateLineNumbers(richTextBox, lineNumbersBox);
         }
 
-        
+        private void RichTextBox_MouseWheel(object sender, MouseEventArgs e)
+        { 
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                ((HandledMouseEventArgs)e).Handled = true;
+            }
+        }
+
 
         private void Undo()
         {
@@ -554,7 +560,7 @@ namespace compiler
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var result = MessageBox.Show("Сохрнаить перд выходом все изменения в файле?","Внимание",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+            var result = MessageBox.Show("Сохранить перед выходом все изменения в файлах?","Внимание",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
                 foreach (var tabPage in tabControl1.TabPages)
@@ -568,12 +574,59 @@ namespace compiler
         {
             if (tabControl1.SelectedTab != null)
             {
+                dataGridView1.Columns.Clear();
+                richTextBox1.Clear();
                 RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
                 Lexer scanner = new Lexer(richTextBox.Text);
-                dataGridView1.DataSource = null;
-                dataGridView1.Columns.Clear();
-                dataGridView1.DataSource = scanner.Analyze();
+                List<Token> tokens = scanner.Analyze();
+
+                DataTable table = new DataTable();
+                table.Columns.Add("Код", typeof(int));
+                table.Columns.Add("Тип", typeof(string));
+                table.Columns.Add("Значение", typeof(string));
+                table.Columns.Add("Диапазон", typeof(string));
+
+               
+                foreach (var token in tokens)
+                {
+                    string translatedType = TranslateType(token.Type);
+                    string range = $"с {token.Position.Item1 + 1} по {token.Position.Item2+1} символ";
+                    table.Rows.Add(token.Code, translatedType, token.Value, range);
+                }
+
                 
+                dataGridView1.DataSource = table;
+
+                
+                richTextBox1.Text = string.Join(" - ", scanner.move);
+
+
+            }
+        }
+        private string TranslateType(TypeToken type)
+        {
+            switch (type)
+            {
+                case TypeToken.KEYWORD:
+                    return "ключевое слово";
+                case TypeToken.ID:
+                    return "идентификатор";
+                case TypeToken.DELIMETER:
+                    return "разделитель";
+                case TypeToken.OPERATOR_COMPARSION:
+                    return "оператор сравнения";
+                case TypeToken.PARENTHESIS:
+                    return "скобка";
+                case TypeToken.COMMA:
+                    return "запятая";
+                case TypeToken.OPERATOR_END:
+                    return "конец оператора";
+                case TypeToken.OPERATOR_ASSIGNMENT:
+                    return "оператор присваивания";
+                case TypeToken.ERROR:
+                    return "недопустимый символ";
+                default:
+                    return"ошибка";
             }
         }
     }

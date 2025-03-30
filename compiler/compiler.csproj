@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutFormcs.cs">
+    <Compile Include="forms\AboutFormcs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutFormcs.Designer.cs">
+    <Compile Include="forms\AboutFormcs.Designer.cs">
       <DependentUpon>AboutFormcs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="MyString.Designer.cs">
@@ -65,23 +65,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Lexer.cs" />
-    <Compile Include="SettingsFormcs.cs">
+    <Compile Include="cls\Lexer.cs" />
+    <Compile Include="forms\SettingsFormcs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsFormcs.Designer.cs">
+    <Compile Include="forms\SettingsFormcs.Designer.cs">
       <DependentUpon>SettingsFormcs.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutFormcs.resx">
+    <Compile Include="cls\Token.cs" />
+    <EmbeddedResource Include="forms\AboutFormcs.resx">
       <DependentUpon>AboutFormcs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.en-US.resx">
+    <EmbeddedResource Include="forms\Form1.en-US.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.ru.resx">
+    <EmbeddedResource Include="forms\Form1.ru.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyString.resx">
@@ -98,7 +99,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsFormcs.resx">
+    <EmbeddedResource Include="forms\SettingsFormcs.resx">
       <DependentUpon>SettingsFormcs.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
