@@ -580,6 +580,7 @@ namespace compiler
                 parser.Parse();
                 List<ParseError> errors = parser.errors;
                 errors.AddRange(parser.Lexer.Errors);
+                errors.OrderBy(x => x.startPos);
                 dataGridView1.DataSource = errors.Select(ee => new
                 {
                     Сообщение = ee.Message,
