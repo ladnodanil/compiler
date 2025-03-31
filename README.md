@@ -1,26 +1,8 @@
 # Постановка задачи
-_____
-1. Спроектировать диаграмму состояний сканера.
-2. Разработать лексический анализатор, позволяющий выделить в тексте лексемы, иные символы считать недопустимым(выводить ошибку).
-3. Встроить сканер в ранее разработанный интерфейс текстового редактора. Учесть, что текст для разбора может состоять из множества строк.
------
->Входные данные - строка (текст программного кода).
-
->Выходные данные - последовательность условных кодов, описывающих структуру разбираемого текста с указанием места положения и типа ("число", "идентификатор", "знак", "недопустимый символ" и т.д.). Например, для строки `int x=123;`:
-
-14 - ключевое слово - int - с 1 по 3 символ
-
-11 - разделитель - (пробел) - с 4 по 4 символ
-
-2 - идентификатор - x - с 5 по 5 символ
-
-10 - оператор присваивания - = - с 6 по 6 символ
-
-1 - целое без знака - 123 - с 7 по 9 символ
-
-16 - конец оператора - ; - с 10 по 10 символ
-
->Окно вывода результатов можно реализовать в виде таблицы (элемент управления DataGridView). Столбцы таблицы представляют собой условный код, тип лексемы, лексема и ее местоположение.
+1. Разработать автоматную грамматику.
+1. Спроектировать граф конечного автомата (перейти от автоматной грамматики к конечному автомату).
+1. Выполнить программную реализацию алгоритма работы конечного автомата.
+1. Встроить разработанную программу в интерфейс текстового редактора, созданного на первой лабораторной работе.
 
 # Персональный вариант
 Тема: Объявление ассоциативного массива языка C#
@@ -57,13 +39,61 @@ int
 )
 ;
 ```
-# Диаграмма состояний сканера
-![diagram](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/diagramm.png)
+# Грамматика языка
+Определим грамматику объявления ассоциативного массива языка C# G[‹START›] в нотации Хомского с продукциями P:
+1)	`<START>`→’Dictionary’`<GENERIC_TYPE>`
+2)	`<GENERIC_TYPE>`→’<’`<TKEY>`
+3)	`<TKEY>`→`<type><COMMA>`
+4)	`<COMMA>`→’,’`<TVALUE>`
+5)	`<TVALUE>`→ `<type><CLOSE_GENERIC>`
+6)	`<CLOSE_GENERIC>`→’>’`<ID>`
+7)	`<ID>`→`<letter><IDREM>`
+8)	`<IDREM>`→`<letter>`|`<digit><IDREM>`
+9)	`<IDREM>`→’=’`<NEW>`
+10)	`<NEW>`→’new’`<SPASE>`
+11)	`<SPASE>`→’ ‘`<DICT_CREATTION>`
+12)	`<DICT_CREATTION>`→’Dictionary’`<GENERIC_TYPE2>`
+13)	`<GENERIC_TYPE2>`→’<’`<TKEY2>`
+14)	`<TKEY2>`→`<type><COMMA2>`
+15)	`<COMMA2>`→’,’`<TVALUE2>`
+16)	`<TVALUE2>`→ `<type><CLOSE_GENERIC2>`
+17)	`<CLOSE_GENERIC2>`→’>’`<OPEN_PAREN>`
+18)	`<OPEN_PAREN>`→’(‘`<CLOSE_PAREN>`
+19)	`<CLOSE_PAREN>`→’)’`<END>`
+20)	`<END>`→’;’
+- `<type>`→’int’|’string’
+- `<letter>`→ ‘a’ | ‘b’ | ‘c’| ... | ‘z’ | ‘A’ | ‘B’ | ‘C’| ... | ‘Z’
+- `<digit>`→’0’|’1’|…|’9’
 
+Следуя введенному формальному определению грамматики, представим G[‹START›] ее составляющими:
+- Z = ‹START›;
+- VT = {a, b, c, ..., z, A, B, C, ..., Z,  , < , > , ( , ) , ; , , , = ,  , 0, 1, 2, ..., 9};
+- VN = {`<START>`, `<GENERIC_TYPE>`, `<TKEY>`, `<COMMA>`, `<TVALUE>`, `<CLOSE_GENERIC>`, `<ID>`, `<IDREM>`, `<NEW>`, `<SPASE>`, `<DICT_CREATTION>`, `<GENERIC_TYPE2>`, `<TKEY2>`, `<COMMA2>`, `<TVALUE2>`, `<CLOSE_GENERIC2>`, `<OPEN_PAREN>`, `<CLOSE_PAREN>`, `<END>`, `<type>`, `<letter>`, `<digit>`}
 
-# Тестовые примеры
-![scren1](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/scren1.png)
+# Классификация грамматики
+Согласно классификации Хомского, грамматика G[‹START›] является автоматной.
+Все правила (1)-(20) относятся к классу праворекурсивных продукций (A → aB | a | ε):
+1)	`<START>`→’Dictionary’`<GENERIC_TYPE>`
+2)	`<GENERIC_TYPE>`→’<’`<TKEY>`
+3)	`<TKEY>`→`<type><COMMA>`
+4)	`<COMMA>`→’,’`<TVALUE>`
+5)	`<TVALUE>`→ `<type><CLOSE_GENERIC>`
+6)	`<CLOSE_GENERIC>`→’>’`<ID>`
+7)	`<ID>`→`<letter><IDREM>`
+8)	`<IDREM>`→`<letter>`|`<digit><IDREM>`
+9)	`<IDREM>`→’=’`<NEW>`
+10)	`<NEW>`→’new’`<SPASE>`
+11)	`<SPASE>`→’ ‘`<DICT_CREATTION>`
+12)	`<DICT_CREATTION>`→’Dictionary’`<GENERIC_TYPE2>`
+13)	`<GENERIC_TYPE2>`→’<’`<TKEY2>`
+14)	`<TKEY2>`→`<type><COMMA2>`
+15)	`<COMMA2>`→’,’`<TVALUE2>`
+16)	`<TVALUE2>`→ `<type><CLOSE_GENERIC2>`
+17)	`<CLOSE_GENERIC2>`→’>’`<OPEN_PAREN>`
+18)	`<OPEN_PAREN>`→’(‘`<CLOSE_PAREN>`
+19)	`<CLOSE_PAREN>`→’)’`<END>`
+20)	`<END>`→’;’
 
+# Граф конечного автомата
+![graph](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/diagramm.png)
 
-
-![scren2](https://raw.githubusercontent.com/ladnodanil/compiler/master/compiler/icon/scren2.png)
