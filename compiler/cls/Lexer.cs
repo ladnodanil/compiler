@@ -21,6 +21,8 @@ namespace compiler
 
         public List<string> move = new List<string>();
 
+        public List<ParseError> Errors = new List<ParseError>();
+
         public List<string> KeyWords = new List<string>
         {
             "int",
@@ -34,7 +36,7 @@ namespace compiler
             this.CodeText = Text.Replace("\n", " ").Replace("\t", " ").Replace("\r", " ");
         }
 
-        public List<Token> Analyze()
+        public void Analyze()
         {
             int position = 0;
             int beginPosition = 0;
@@ -135,9 +137,16 @@ namespace compiler
                                 Tokens.Add(new Token(6, TypeToken.ID, value, (beginPosition, endPosition)));
                                 move.Add("OUT");
                             }
+                            if (value == "new" && char.IsWhiteSpace(CodeText[position]))
+                            {
+                                Status = 2;
+                            }
+                            else
+                            {
+                                Status = 0;
+                            }
                             value = "";
-                            Status = 0;
-                            
+
                         }
                         break;
                     case 2:
@@ -199,13 +208,14 @@ namespace compiler
                     case 10:
                         move.Add("10");
                         Tokens.Add(new Token(15, TypeToken.ERROR, Char.ToString(), (position, position)));
-                        return Tokens;
+                        Errors.Add(new ParseError("Неожиданный символ", Char.ToString(), (position, position)));
+                        position++;
+                        Status = 0;
+                        break;
                     default:
                         break;
                 }
             }
-
-            return Tokens;
         }
     }
 }

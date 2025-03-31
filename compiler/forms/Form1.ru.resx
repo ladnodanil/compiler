@@ -121,18 +121,6 @@
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
     <value>1032, 493</value>
   </data>
-  <data name="Column1.HeaderText" xml:space="preserve">
-    <value>Код</value>
-  </data>
-  <data name="Column2.HeaderText" xml:space="preserve">
-    <value>Тип</value>
-  </data>
-  <data name="Column3.HeaderText" xml:space="preserve">
-    <value>Значение</value>
-  </data>
-  <data name="Column4.HeaderText" xml:space="preserve">
-    <value>Местоположение</value>
-  </data>
   <data name="dataGridView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>1024, 140</value>
   </data>
@@ -140,26 +128,7 @@
     <value>1024, 140</value>
   </data>
   <data name="tabPage1.Text" xml:space="preserve">
-    <value>Лексемы</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="richTextBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="richTextBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="richTextBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="richTextBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1024, 140</value>
-  </data>
-  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1024, 140</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>Движение по состоянию графа</value>
+    <value>Ошибки</value>
   </data>
   <data name="tabControl2.Size" type="System.Drawing.Size, System.Drawing">
     <value>1032, 173</value>
