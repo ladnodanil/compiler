@@ -100,3 +100,5 @@ int
 
 
 # Тестовые примеры
+![tmp1](https://raw.githubusercontent.com/ladnodanil/compiler/laba3/compiler/icon/tmp1.png)
+![tpm2](https://raw.githubusercontent.com/ladnodanil/compiler/laba3/compiler/icon/tmp2.png)
