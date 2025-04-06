@@ -51,7 +51,11 @@ namespace compiler
                 switch (Status)
                 {
                     case 0:
-                        move.Add("START");
+                        if (Char!= '\0')
+                        {
+                            move.Add("START");
+                        }
+                        move.Add("0");
                         switch (Char)
                         {
                             case char c when char.IsLetter(c) && c >= 65 && c <= 122:
@@ -197,9 +201,11 @@ namespace compiler
                         Status = 0;
                         break;
                     case 10:
-                        move.Add("10");
+                        move.Add("ERROR");
                         Tokens.Add(new Token(15, TypeToken.ERROR, Char.ToString(), (position, position)));
-                        return Tokens;
+                        position++;
+                        Status = 0;
+                        break;
                     default:
                         break;
                 }

@@ -594,7 +594,17 @@ namespace compiler
                     table.Rows.Add(token.Code, translatedType, token.Value, range);
                 }
 
-                
+                richTextBox.SelectAll();
+                richTextBox.SelectionBackColor = richTextBox.BackColor;
+
+                foreach (Token token in tokens)
+                {
+                    if (token.Type == TypeToken.ERROR)
+                    {
+                        richTextBox.Select(token.Position.Item1, token.Position.Item2 - token.Position.Item1+1);
+                        richTextBox.SelectionBackColor = Color.Red;
+                    }
+                }
                 dataGridView1.DataSource = table;
 
                 
