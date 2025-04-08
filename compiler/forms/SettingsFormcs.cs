@@ -15,6 +15,7 @@ namespace compiler
         public SettingsFormcs()
         {
             InitializeComponent();
+            comboBox1.SelectedItem = Properties.Settings.Default.FontSize;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -23,15 +24,6 @@ namespace compiler
             {
                 Properties.Settings.Default.FontSize = Convert.ToInt32(comboBox1.SelectedItem);
             }
-            if (radioButton1.Checked)
-            {
-                Properties.Settings.Default.Language = "ru";
-            }
-            else if (radioButton2.Checked)
-            {
-                Properties.Settings.Default.Language = "en-US";
-            }
-
             Properties.Settings.Default.Save();
             this.Close();
         }

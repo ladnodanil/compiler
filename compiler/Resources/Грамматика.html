@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Грамматика</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #444;
+            margin-top: 25px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        p {
+            text-align: justify;
+        }
+        .grammar-rule {
+            margin-bottom: 10px;
+        }
+        .terminal {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        .non-terminal {
+            color: #cc0000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Грамматика</h1>
+    
+    <p>Определим грамматику объявления ассоциативного массива языка C# G[‹START›] в нотации Хомского с продукциями P:</p>
+    
+    <div class="grammar-rule">1) <span class="non-terminal">&lt;START&gt;</span> → <span class="terminal">'Dictionary'</span><span class="non-terminal">&lt;GENERIC_TYPE&gt;</span></div>
+    <div class="grammar-rule">2) <span class="non-terminal">&lt;GENERIC_TYPE&gt;</span> → <span class="terminal">'&lt;'</span><span class="non-terminal">&lt;TKEY&gt;</span></div>
+    <div class="grammar-rule">3) <span class="non-terminal">&lt;TKEY&gt;</span> → <span class="non-terminal">&lt;type&gt;</span><span class="non-terminal">&lt;COMMA&gt;</span></div>
+    <div class="grammar-rule">4) <span class="non-terminal">&lt;COMMA&gt;</span> → <span class="terminal">','</span><span class="non-terminal">&lt;TVALUE&gt;</span></div>
+    <div class="grammar-rule">5) <span class="non-terminal">&lt;TVALUE&gt;</span> → <span class="non-terminal">&lt;type&gt;</span><span class="non-terminal">&lt;CLOSE_GENERIC&gt;</span></div>
+    <div class="grammar-rule">6) <span class="non-terminal">&lt;CLOSE_GENERIC&gt;</span> → <span class="terminal">'>'</span><span class="non-terminal">&lt;ID&gt;</span></div>
+    <div class="grammar-rule">7) <span class="non-terminal">&lt;ID&gt;</span> → <span class="non-terminal">&lt;letter&gt;</span><span class="non-terminal">&lt;IDREM&gt;</span></div>
+    <div class="grammar-rule">8) <span class="non-terminal">&lt;IDREM&gt;</span> → <span class="non-terminal">&lt;letter&gt;</span> | <span class="non-terminal">&lt;digit&gt;</span><span class="non-terminal">&lt;IDREM&gt;</span></div>
+    <div class="grammar-rule">9) <span class="non-terminal">&lt;IDREM&gt;</span> → <span class="terminal">'='</span><span class="non-terminal">&lt;NEW&gt;</span></div>
+    <div class="grammar-rule">10) <span class="non-terminal">&lt;NEW&gt;</span> → <span class="terminal">'new'</span><span class="non-terminal">&lt;SPASE&gt;</span></div>
+    <div class="grammar-rule">11) <span class="non-terminal">&lt;SPASE&gt;</span> → <span class="terminal">' '</span><span class="non-terminal">&lt;DICT_CREATTION&gt;</span></div>
+    <div class="grammar-rule">12) <span class="non-terminal">&lt;DICT_CREATTION&gt;</span> → <span class="terminal">'Dictionary'</span><span class="non-terminal">&lt;GENERIC_TYPE2&gt;</span></div>
+    <div class="grammar-rule">13) <span class="non-terminal">&lt;GENERIC_TYPE2&gt;</span> → <span class="terminal">'&lt;'</span><span class="non-terminal">&lt;TKEY2&gt;</span></div>
+    <div class="grammar-rule">14) <span class="non-terminal">&lt;TKEY2&gt;</span> → <span class="non-terminal">&lt;type&gt;</span><span class="non-terminal">&lt;COMMA2&gt;</span></div>
+    <div class="grammar-rule">15) <span class="non-terminal">&lt;COMMA2&gt;</span> → <span class="terminal">','</span><span class="non-terminal">&lt;TVALUE2&gt;</span></div>
+    <div class="grammar-rule">16) <span class="non-terminal">&lt;TVALUE2&gt;</span> → <span class="non-terminal">&lt;type&gt;</span><span class="non-terminal">&lt;CLOSE_GENERIC2&gt;</span></div>
+    <div class="grammar-rule">17) <span class="non-terminal">&lt;CLOSE_GENERIC2&gt;</span> → <span class="terminal">'>'</span><span class="non-terminal">&lt;OPEN_PAREN&gt;</span></div>
+    <div class="grammar-rule">18) <span class="non-terminal">&lt;OPEN_PAREN&gt;</span> → <span class="terminal">'('</span><span class="non-terminal">&lt;CLOSE_PAREN&gt;</span></div>
+    <div class="grammar-rule">19) <span class="non-terminal">&lt;CLOSE_PAREN&gt;</span> → <span class="terminal">')'</span><span class="non-terminal">&lt;END&gt;</span></div>
+    <div class="grammar-rule">20) <span class="non-terminal">&lt;END&gt;</span> → <span class="terminal">';'</span></div>
+    
+    <p>Дополнительные правила:</p>
+    <div class="grammar-rule">• <span class="non-terminal">&lt;type&gt;</span> → <span class="terminal">'int'</span> | <span class="terminal">'string'</span></div>
+    <div class="grammar-rule">• <span class="non-terminal">&lt;letter&gt;</span> → <span class="terminal">'a'</span> | <span class="terminal">'b'</span> | <span class="terminal">'c'</span> | ... | <span class="terminal">'z'</span> | <span class="terminal">'A'</span> | <span class="terminal">'B'</span> | <span class="terminal">'C'</span> | ... | <span class="terminal">'Z'</span></div>
+    <div class="grammar-rule">• <span class="non-terminal">&lt;digit&gt;</span> → <span class="terminal">'0'</span> | <span class="terminal">'1'</span> | ... | <span class="terminal">'9'</span></div>
+    
+    <h2>Составляющие грамматики G[‹START›]</h2>
+    <p>Следуя введенному формальному определению грамматики, представим G[‹START›] ее составляющими:</p>
+    
+    <p>• Z = ‹START›;</p>
+    <p>• VT = {a, b, c, ..., z, A, B, C, ..., Z,  , &lt; , &gt; , ( , ) , ; , , , = ,  , 0, 1, 2, ..., 9};</p>
+    <p>• VN = {&lt;START&gt;, &lt;GENERIC_TYPE&gt;, &lt;TKEY&gt;, &lt;COMMA&gt;, &lt;TVALUE&gt;, &lt;CLOSE_GENERIC&gt;, &lt;ID&gt;, &lt;IDREM&gt;, &lt;NEW&gt;, &lt;SPASE&gt;, &lt;DICT_CREATTION&gt;, &lt;GENERIC_TYPE2&gt;, &lt;TKEY2&gt;, &lt;COMMA2&gt;, &lt;TVALUE2&gt;, &lt;CLOSE_GENERIC2&gt;, &lt;OPEN_PAREN&gt;, &lt;CLOSE_PAREN&gt;, &lt;END&gt;, &lt;type&gt;, &lt;letter&gt;, &lt;digit&gt;}</p>
+</body>
+</html> 

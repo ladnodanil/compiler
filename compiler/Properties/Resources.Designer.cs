@@ -22,7 +22,7 @@ namespace compiler.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace compiler.Properties {
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("compiler.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace compiler.Properties {
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace compiler.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _104618 {
+        public static System.Drawing.Bitmap _104618 {
             get {
                 object obj = ResourceManager.GetObject("104618", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,17 @@ namespace compiler.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap openD {
+        public static System.Drawing.Bitmap i {
+            get {
+                object obj = ResourceManager.GetObject("i", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap openD {
             get {
                 object obj = ResourceManager.GetObject("openD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,10 +93,309 @@ namespace compiler.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save {
+        public static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap вперед {
+            get {
+                object obj = ResourceManager.GetObject("вперед", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap вставить {
+            get {
+                object obj = ResourceManager.GetObject("вставить", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap вырезать {
+            get {
+                object obj = ResourceManager.GetObject("вырезать", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Грамматика&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 800px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///            padding [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string Грамматика {
+            get {
+                return ResourceManager.GetString("Грамматика", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap граф_конечного_автомата {
+            get {
+                object obj = ResourceManager.GetObject("граф_конечного_автомата", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Диаграмма_состояния_сканера {
+            get {
+                object obj = ResourceManager.GetObject("Диаграмма_состояния_сканера", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Классификация грамматики&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 800px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///      [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string Классификация_грамматики {
+            get {
+                return ResourceManager.GetString("Классификация_грамматики", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Листинг программы&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 1000px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///            [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string Листинг_программы {
+            get {
+                return ResourceManager.GetString("Листинг_программы", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Метод анализа&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 800px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///            padding-bottom: 10px; [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string Метод_анализа {
+            get {
+                return ResourceManager.GetString("Метод_анализа", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap назад {
+            get {
+                object obj = ResourceManager.GetObject("назад", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Постановка задачи&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 800px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///             [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string постановка_задачи {
+            get {
+                return ResourceManager.GetString("постановка_задачи", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap пуск {
+            get {
+                object obj = ResourceManager.GetObject("пуск", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Список литературы&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 800px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///             [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string Список_литературы {
+            get {
+                return ResourceManager.GetString("Список_литературы", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap справка {
+            get {
+                object obj = ResourceManager.GetObject("справка", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Справка&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 800px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///            padding-bottom: 10px;
+        ///       [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string справка1 {
+            get {
+                return ResourceManager.GetString("справка1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;ru&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;title&gt;Тестовые примеры&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, sans-serif;
+        ///            line-height: 1.6;
+        ///            margin: 40px;
+        ///            max-width: 800px;
+        ///            margin: 0 auto;
+        ///            padding: 20px;
+        ///        }
+        ///
+        ///        h1 {
+        ///            color: #333;
+        ///            border-bottom: 1px solid #ddd;
+        ///            padding-bottom: 10 [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string тест {
+            get {
+                return ResourceManager.GetString("тест", resourceCulture);
             }
         }
     }

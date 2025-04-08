@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Листинг программы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #444;
+            margin-top: 25px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            line-height: 1.4;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        p {
+            text-align: justify;
+        }
+        .file-name {
+            font-weight: bold;
+            color: #0066cc;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        .keyword {
+            color: #0000ff;
+            font-weight: bold;
+        }
+        .comment {
+            color: #008000;
+        }
+        .string {
+            color: #a31515;
+        }
+        .type {
+            color: #267f99;
+        }
+        .highlight {
+            background-color: #ffffcc;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Листинг программы</h1>
+    
+    <div class="file-name">Lexer.cs</div>
+    <pre><code><span class="keyword">using</span> System;
+<span class="keyword">using</span> System.Collections.Generic;
+<span class="keyword">using</span> System.Data;
+<span class="keyword">using</span> System.Linq;
+<span class="keyword">using</span> System.Runtime.CompilerServices;
+<span class="keyword">using</span> System.Text;
+<span class="keyword">using</span> System.Threading.Tasks;
+<span class="keyword">using</span> System.Windows.Forms;
+<span class="keyword">using</span> <span class="keyword">static</span> System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+<span class="keyword">namespace</span> compiler
+{
+
+    <span class="keyword">public</span> <span class="keyword">class</span> Lexer
+    {
+        <span class="keyword">public</span> <span class="type">string</span> CodeText;
+
+        <span class="keyword">public</span> <span class="type">int</span> Status;
+
+        <span class="keyword">public</span> List&lt;Token&gt; Tokens = <span class="keyword">new</span> List&lt;Token&gt;();
+
+        <span class="keyword">public</span> List&lt;string&gt; move = <span class="keyword">new</span> List&lt;string&gt;();
+
+        <span class="keyword">public</span> List&lt;string&gt; KeyWords = <span class="keyword">new</span> List&lt;string&gt;
+        {
+            <span class="string">"int"</span>,
+            <span class="string">"string"</span>,
+            <span class="string">"new"</span>,
+            <span class="string">"Dictionary"</span>,
+        };
+
+        <span class="keyword">public</span> Lexer(<span class="type">string</span> Text)
+        {
+            <span class="keyword">this</span>.CodeText = Text.Replace(<span class="string">"\n"</span>, <span class="string">" "</span>).Replace(<span class="string">"\t"</span>, <span class="string">" "</span>).Replace(<span class="string">"\r"</span>, <span class="string">" "</span>);
+        }
+
+        <span class="keyword">public</span> List&lt;Token&gt; Analyze()
+        {
+            <span class="type">int</span> position = 0;
+            <span class="type">int</span> beginPosition = 0;
+            <span class="type">int</span> endPosition = 0;
+            <span class="type">char</span> Char = <span class="string">' '</span>;
+
+
+            <span class="type">string</span> value = <span class="string">""</span>;
+            <span class="keyword">while</span> (Char != <span class="string">'\0'</span>)
+            {
+
+                Char = position &lt; CodeText.Length ? CodeText[position] : <span class="string">'\0'</span>;
+
+                <span class="keyword">switch</span> (Status)
+                {
+                    <span class="keyword">case</span> 0:
+                        <span class="keyword">if</span> (Char!= <span class="string">'\0'</span>)
+                        {
+                            move.Add(<span class="string">"START"</span>);
+                        }
+                        move.Add(<span class="string">"0"</span>);
+                        <span class="keyword">switch</span> (Char)
+                        {
+                            <span class="keyword">case</span> <span class="type">char</span> c <span class="keyword">when</span> char.IsLetter(c) && c >= 65 && c <= 122:
+                                value += c;
+                                beginPosition = position;
+                                Status = 1;
+                                position++;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">' '</span>:
+                                position++;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">'&lt;'</span>:
+                                Status = 3;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">'>'</span>:
+                                Status = 4;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">'('</span>:
+                                Status = 5;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">')'</span>:
+                                Status = 6;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">','</span>:
+                                Status = 7;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">';'</span>:
+                                Status = 8;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">case</span> <span class="string">'='</span>:
+                                Status = 9;
+                                <span class="keyword">break</span>;
+
+                            <span class="keyword">default</span>:
+                                Status = 10;
+                                <span class="keyword">break</span>;
+                        }
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 1:
+                        move.Add(<span class="string">"1"</span>);
+                        <span class="keyword">if</span> (char.IsLetterOrDigit(Char) || (Char >= 65 && Char <= 122))
+                        {
+                            value += Char;
+                            position++;
+                        }
+                        <span class="keyword">else</span>
+                        {
+                            endPosition = position-1;
+                            <span class="keyword">if</span> (KeyWords.Contains(value))
+                            {
+                                <span class="type">int</span> code = 6;
+                                <span class="keyword">switch</span> (value)
+                                {
+                                    <span class="keyword">case</span> <span class="string">"int"</span>:
+                                        code = 1;
+                                        <span class="keyword">break</span>;
+                                    <span class="keyword">case</span> <span class="string">"string"</span>:
+                                        code = 2;
+                                        <span class="keyword">break</span>;
+                                    <span class="keyword">case</span> <span class="string">"new"</span>:
+                                        code = 3;
+                                        <span class="keyword">break</span>;
+                                    <span class="keyword">case</span> <span class="string">"Dictionary"</span>:
+                                        code = 4;
+                                        <span class="keyword">break</span>;
+                                }
+                                
+                                Tokens.Add(<span class="keyword">new</span> Token(code, TypeToken.KEYWORD, value, (beginPosition, endPosition)));
+                                move.Add(<span class="string">"OUT"</span>);
+                            }
+                            <span class="keyword">else</span>
+                            {
+                                Tokens.Add(<span class="keyword">new</span> Token(6, TypeToken.ID, value, (beginPosition, endPosition)));
+                                move.Add(<span class="string">"OUT"</span>);
+                            }
+                            value = <span class="string">""</span>;
+                            Status = 0;
+                            
+                        }
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 2:
+                        move.Add(<span class="string">"2"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(7, TypeToken.DELIMETER, Char.ToString(), (position, position )));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 3:
+                        move.Add(<span class="string">"3"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(8, TypeToken.OPERATOR_COMPARSION, Char.ToString(), (position, position)));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 4:
+                        move.Add(<span class="string">"4"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(9, TypeToken.OPERATOR_COMPARSION, Char.ToString(), (position, position)));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 5:
+                        move.Add(<span class="string">"5"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(10, TypeToken.PARENTHESIS, Char.ToString(), (position, position)));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 6:
+                        move.Add(<span class="string">"6"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(11, TypeToken.PARENTHESIS, Char.ToString(), (position, position)));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 7:
+                        move.Add(<span class="string">"7"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(12, TypeToken.COMMA, Char.ToString(), (position, position)));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 8:
+                        move.Add(<span class="string">"8"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(13, TypeToken.OPERATOR_END, Char.ToString(), (position, position)));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 9:
+                        move.Add(<span class="string">"9"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(14, TypeToken.OPERATOR_ASSIGNMENT, Char.ToString(), (position, position)));
+                        move.Add(<span class="string">"OUT"</span>);
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">case</span> 10:
+                        move.Add(<span class="string">"ERROR"</span>);
+                        Tokens.Add(<span class="keyword">new</span> Token(15, TypeToken.ERROR, Char.ToString(), (position, position)));
+                        position++;
+                        Status = 0;
+                        <span class="keyword">break</span>;
+                    <span class="keyword">default</span>:
+                        <span class="keyword">break</span>;
+                }
+            }
+
+            <span class="keyword">return</span> Tokens;
+        }
+    }
+}</code></pre>
+
+<div class="file-name">Token.cs</div>
+<pre><code><span class="keyword">using</span> System;
+<span class="keyword">using</span> System.Collections.Generic;
+<span class="keyword">using</span> System.Linq;
+<span class="keyword">using</span> System.Text;
+<span class="keyword">using</span> System.Threading.Tasks;
+
+<span class="keyword">namespace</span> compiler
+{
+    <span class="keyword">public</span> <span class="keyword">enum</span> TypeToken
+    {
+        ID, 
+        KEYWORD,
+        DELIMETER, <span class="comment">//разделитель</span>
+        OPERATOR_COMPARSION, <span class="comment">// оператор сравнения</span>
+        PARENTHESIS, <span class="comment">// круглая скобка</span>
+        COMMA, <span class="comment">// запятая</span>
+        OPERATOR_END,
+        OPERATOR_ASSIGNMENT, <span class="comment">// оператор присваивания</span>
+        ERROR
+    }
+    <span class="keyword">public</span>  <span class="keyword">class</span> Token
+    {
+        <span class="keyword">public</span> <span class="type">int</span> Code { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+        <span class="keyword">public</span> TypeToken Type {<span class="keyword">get</span>; <span class="keyword">set</span>; }
+
+        <span class="keyword">public</span> <span class="type">string</span> Value { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+
+        <span class="keyword">public</span> (<span class="type">int</span>,<span class="type">int</span>) Position { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+
+        <span class="keyword">public</span> Token(<span class="type">int</span> code, TypeToken type, <span class="type">string</span> value, (<span class="type">int</span>, <span class="type">int</span>) position)
+        {
+            Code = code;
+            Type = type;
+            Value = value;
+            Position = position;
+        }
+    }
+}</code></pre>
+
+<div class="file-name">Form.cs (метод Run)</div>
+<pre><code><span class="keyword">private</span> <span class="type">void</span> Run()
+{
+    <span class="keyword">if</span> (tabControl1.SelectedTab != <span class="keyword">null</span>)
+    {
+        dataGridView1.Columns.Clear();
+        richTextBox1.Clear();
+        RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] <span class="keyword">as</span> RichTextBox;
+        Lexer scanner = <span class="keyword">new</span> Lexer(richTextBox.Text);
+        List&lt;Token&gt; tokens = scanner.Analyze();
+
+        DataTable table = <span class="keyword">new</span> DataTable();
+        table.Columns.Add(<span class="string">"Код"</span>, <span class="keyword">typeof</span>(<span class="type">int</span>));
+        table.Columns.Add(<span class="string">"Тип"</span>, <span class="keyword">typeof</span>(<span class="type">string</span>));
+        table.Columns.Add(<span class="string">"Значение"</span>, <span class="keyword">typeof</span>(<span class="type">string</span>));
+        table.Columns.Add(<span class="string">"Диапазон"</span>, <span class="keyword">typeof</span>(<span class="type">string</span>));
+
+
+        <span class="keyword">foreach</span> (<span class="keyword">var</span> token <span class="keyword">in</span> tokens)
+        {
+            <span class="type">string</span> translatedType = TranslateType(token.Type);
+            <span class="type">string</span> range = $<span class="string">"с {token.Position.Item1 + 1} по {token.Position.Item2 + 1} символ"</span>;
+            table.Rows.Add(token.Code, translatedType, token.Value, range);
+        }
+
+        richTextBox.SelectAll();
+        richTextBox.SelectionBackColor = richTextBox.BackColor;
+
+        <span class="keyword">foreach</span> (Token token <span class="keyword">in</span> tokens)
+        {
+            <span class="keyword">if</span> (token.Type == TypeToken.ERROR)
+            {
+                richTextBox.Select(token.Position.Item1, token.Position.Item2 - token.Position.Item1 + 1);
+                richTextBox.SelectionBackColor = Color.Red;
+            }
+        }
+        dataGridView1.DataSource = table;
+
+
+        richTextBox1.Text = <span class="type">string</span>.Join(<span class="string">" - "</span>, scanner.move);
+
+
+    }
+}</code></pre>
+</body>
+</html> 

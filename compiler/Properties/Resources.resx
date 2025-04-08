@@ -118,13 +118,64 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="вставить" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\вставить.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="вперед" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\вперед.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="вырезать" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\вырезать.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="справка" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\справка.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="openD" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\openD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="пуск" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\пуск.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="104618" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\104618.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icon\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="назад" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\назад1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="i" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\i.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Грамматика" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Грамматика.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="граф_конечного_автомата" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\граф конечного автомата.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Диаграмма_состояния_сканера" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Диаграмма состояния сканера.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Классификация_грамматики" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Классификация грамматики.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Листинг_программы" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Листинг программы.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Метод_анализа" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Метод анализа.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="постановка_задачи" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\постановка задачи.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Список_литературы" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Список литературы.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="справка1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\справка.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="тест" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\тест.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

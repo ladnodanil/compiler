@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>c-icon-1820x2048-5g8nvybk.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,11 +61,6 @@
     <Compile Include="forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyString.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyString.resx</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="cls\Lexer.cs" />
@@ -76,21 +74,11 @@
     <EmbeddedResource Include="forms\AboutFormcs.resx">
       <DependentUpon>AboutFormcs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\Form1.en-US.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\Form1.ru.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MyString.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MyString.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -115,9 +103,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="icon\104618.png" />
   </ItemGroup>
@@ -126,6 +112,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="icon\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="c-icon-1820x2048-5g8nvybk.ico" />
+    <None Include="Resources\тест.html" />
+    <None Include="Resources\Диаграмма состояния сканера.png" />
+    <None Include="Resources\граф конечного автомата.png" />
+    <None Include="Resources\справка.html" />
+    <None Include="Resources\Список литературы.html" />
+    <None Include="Resources\постановка задачи.html" />
+    <None Include="Resources\Метод анализа.html" />
+    <None Include="Resources\Листинг программы.html" />
+    <None Include="Resources\Классификация грамматики.html" />
+    <None Include="Resources\Грамматика.html" />
+    <None Include="Resources\icon.ico" />
+    <None Include="icon\i.png" />
+    <None Include="icon\справка.png" />
+    <None Include="icon\пуск.png" />
+    <None Include="icon\вставить.png" />
+    <None Include="icon\вырезать.png" />
+    <None Include="Resources\назад1.png" />
+    <None Include="Resources\вперед.png" />
+    <None Include="Resources\назад.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

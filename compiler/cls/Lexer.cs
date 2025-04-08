@@ -54,11 +54,11 @@ namespace compiler
                         if (Char!= '\0')
                         {
                             move.Add("START");
+                            move.Add("0");
                         }
-                        move.Add("0");
                         switch (Char)
                         {
-                            case char c when char.IsLetter(c) && c >= 65 && c <= 122:
+                            case char c when (Char >= 'A' && Char <= 'Z') || (Char >= 'a' && Char <= 'z'):
                                 value += c;
                                 beginPosition = position;
                                 Status = 1;
@@ -104,7 +104,7 @@ namespace compiler
                         break;
                     case 1:
                         move.Add("1");
-                        if (char.IsLetterOrDigit(Char) || (Char >= 65 && Char <= 122))
+                        if ((Char >= 'A' && Char <= 'Z') || (Char >= 'a' && Char <= 'z') || char.IsDigit(Char) || Char == '_')
                         {
                             value += Char;
                             position++;

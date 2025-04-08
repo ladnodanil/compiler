@@ -13,6 +13,7 @@ using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace compiler
@@ -45,12 +46,6 @@ namespace compiler
                 OpenFile();
                 
             }
-        }
-
-        private void ChangeLanguage(string culture)
-        {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
         }
 
 
@@ -512,7 +507,6 @@ namespace compiler
         public void ApplySettings()
         {
             ApplyFontSizeToAll();
-            ChangeLanguage(Properties.Settings.Default.Language);
         }
 
 
@@ -537,15 +531,21 @@ namespace compiler
         {
             About();
         }
-        private void Help()
+
+        private void OpenHTML(string htmlText)
         {
-            string filePath = @"C:\Users\ASUS\source\repos\compiler\compiler\Resources\справка.html";
+            string tempFile = Path.Combine(Path.GetTempPath(), "example.html");
+            File.WriteAllText(tempFile, htmlText, Encoding.UTF8);
 
             Process.Start(new ProcessStartInfo
             {
-                FileName = filePath,
-                UseShellExecute = true 
+                FileName = tempFile,
+                UseShellExecute = true
             });
+        }
+        private void Help()
+        {
+            OpenHTML(Properties.Resources.справка1);
         }
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -638,6 +638,69 @@ namespace compiler
                 default:
                     return"ошибка";
             }
+        }
+
+        private void taskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenHTML(Properties.Resources.постановка_задачи);
+        }
+
+        private void grammToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenHTML(Properties.Resources.Грамматика);
+        }
+
+        private void classificationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenHTML(Properties.Resources.Классификация_грамматики);
+        }
+
+        private void methodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenHtmlWithEmbeddedImages();
+        }
+
+        private void exampleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenHTML(Properties.Resources.тест);
+        }
+
+        private void literatureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenHTML(Properties.Resources.Список_литературы);
+        }
+        string EmbedImage(Bitmap bitmap)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Png);
+                string base64 = Convert.ToBase64String(ms.ToArray());
+                return $"data:image/png;base64,{base64}";
+            }
+        }
+
+        void OpenHtmlWithEmbeddedImages()
+        {
+            // Исходный HTML (строка из ресурсов)
+            string html = Properties.Resources.Метод_анализа; 
+
+            // Заменяем пути к изображениям на встроенные base64
+            html = html.Replace("Диаграмма состояния сканера.png", EmbedImage(Properties.Resources.Диаграмма_состояния_сканера));
+            html = html.Replace("граф конечного автомата.png", EmbedImage(Properties.Resources.граф_конечного_автомата));
+
+            string tempFile = Path.Combine(Path.GetTempPath(), "метод_анализа.html");
+            File.WriteAllText(tempFile, html, Encoding.UTF8);
+
+            // Открываем в браузере
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = tempFile,
+                UseShellExecute = true
+            });
+        }
+        private void codeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenHTML(Properties.Resources.Листинг_программы);
         }
     }
 }
