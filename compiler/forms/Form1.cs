@@ -575,42 +575,26 @@ namespace compiler
             if (tabControl1.SelectedTab != null)
             {
                 dataGridView1.Columns.Clear();
-                richTextBox1.Clear();
                 RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
-                Lexer scanner = new Lexer(richTextBox.Text);
-                List<Token> tokens = scanner.Analyze();
-
-                DataTable table = new DataTable();
-                table.Columns.Add("Код", typeof(int));
-                table.Columns.Add("Тип", typeof(string));
-                table.Columns.Add("Значение", typeof(string));
-                table.Columns.Add("Диапазон", typeof(string));
-
-               
-                foreach (var token in tokens)
+                Parser parser = new Parser(richTextBox.Text);
+                parser.Parse();
+                List<Error> errors = parser.errors;
+                //errors.AddRange(parser.Lexer.Errors);
+                errors.OrderBy(x => x.startPos);
+                dataGridView1.DataSource = errors.Select(ee => new
                 {
-                    string translatedType = TranslateType(token.Type);
-                    string range = $"с {token.Position.Item1 + 1} по {token.Position.Item2+1} символ";
-                    table.Rows.Add(token.Code, translatedType, token.Value, range);
-                }
-
+                    Сообщение = ee.Message,
+                    НеожиданноеЗначение = ee.ErrorValue,
+                    Местоположение = $"({ee.startPos + 1},{ee.endPos})"
+                }).ToList();
                 richTextBox.SelectAll();
                 richTextBox.SelectionBackColor = richTextBox.BackColor;
 
-                foreach (Token token in tokens)
+                foreach (var error in errors)
                 {
-                    if (token.Type == TypeToken.ERROR)
-                    {
-                        richTextBox.Select(token.Position.Item1, token.Position.Item2 - token.Position.Item1+1);
-                        richTextBox.SelectionBackColor = Color.Red;
-                    }
+                    richTextBox.Select(error.startPos, error.endPos - error.startPos);
+                    richTextBox.SelectionBackColor = Color.Red;
                 }
-                dataGridView1.DataSource = table;
-
-                
-                richTextBox1.Text = string.Join(" - ", scanner.move);
-
-
             }
         }
         private string TranslateType(TypeToken type)

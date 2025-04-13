@@ -19,7 +19,6 @@ namespace compiler
 
         public List<Token> Tokens = new List<Token>();
 
-        public List<string> move = new List<string>();
 
         public List<string> KeyWords = new List<string>
         {
@@ -43,19 +42,14 @@ namespace compiler
 
 
             string value = "";
-            while (Char != '\0')
+            bool endFound = false;
+            while (!endFound)
             {
-
                 Char = position < CodeText.Length ? CodeText[position] : '\0';
 
                 switch (Status)
                 {
                     case 0:
-                        if (Char!= '\0')
-                        {
-                            move.Add("START");
-                            move.Add("0");
-                        }
                         switch (Char)
                         {
                             case char c when (Char >= 'A' && Char <= 'Z') || (Char >= 'a' && Char <= 'z'):
@@ -96,14 +90,15 @@ namespace compiler
                             case '=':
                                 Status = 9;
                                 break;
-
+                            case '\0':
+                                Status = 11;
+                                break;
                             default:
                                 Status = 10;
                                 break;
                         }
                         break;
                     case 1:
-                        move.Add("1");
                         if ((Char >= 'A' && Char <= 'Z') || (Char >= 'a' && Char <= 'z') || char.IsDigit(Char) || Char == '_')
                         {
                             value += Char;
@@ -111,100 +106,82 @@ namespace compiler
                         }
                         else
                         {
-                            endPosition = position-1;
+                            endPosition = position - 1;
                             if (KeyWords.Contains(value))
                             {
-                                int code = 6;
-                                switch (value)
+                                Tokens.Add(new Token(TypeToken.KEYWORD, value, (beginPosition, endPosition)));
+                                if (value == "new")
                                 {
-                                    case "int":
-                                        code = 1;
-                                        break;
-                                    case "string":
-                                        code = 2;
-                                        break;
-                                    case "new":
-                                        code = 3;
-                                        break;
-                                    case "Dictionary":
-                                        code = 4;
-                                        break;
+                                    if (position < CodeText.Length && CodeText[position] == ' ')
+                                    {
+                                        Status = 2;
+                                    }
+                                    else
+                                    {
+                                        Status = 10;
+                                    }
                                 }
-                                
-                                Tokens.Add(new Token(code, TypeToken.KEYWORD, value, (beginPosition, endPosition)));
-                                move.Add("OUT");
+                                else
+                                {
+                                    Status = 0;
+                                }
                             }
                             else
                             {
-                                Tokens.Add(new Token(6, TypeToken.ID, value, (beginPosition, endPosition)));
-                                move.Add("OUT");
+                                Tokens.Add(new Token(TypeToken.ID, value, (beginPosition, endPosition)));
+                                Status = 0;
                             }
                             value = "";
-                            Status = 0;
-                            
                         }
                         break;
                     case 2:
-                        move.Add("2");
-                        Tokens.Add(new Token(7, TypeToken.DELIMETER, Char.ToString(), (position, position )));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.DELIMETER, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 3:
-                        move.Add("3");
-                        Tokens.Add(new Token(8, TypeToken.OPERATOR_COMPARSION, Char.ToString(), (position, position)));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.OPERATOR_COMPARSION, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 4:
-                        move.Add("4");
-                        Tokens.Add(new Token(9, TypeToken.OPERATOR_COMPARSION, Char.ToString(), (position, position)));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.OPERATOR_COMPARSION, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 5:
-                        move.Add("5");
-                        Tokens.Add(new Token(10, TypeToken.PARENTHESIS, Char.ToString(), (position, position)));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.PARENTHESIS, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 6:
-                        move.Add("6");
-                        Tokens.Add(new Token(11, TypeToken.PARENTHESIS, Char.ToString(), (position, position)));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.PARENTHESIS, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 7:
-                        move.Add("7");
-                        Tokens.Add(new Token(12, TypeToken.COMMA, Char.ToString(), (position, position)));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.COMMA, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 8:
-                        move.Add("8");
-                        Tokens.Add(new Token(13, TypeToken.OPERATOR_END, Char.ToString(), (position, position)));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.OPERATOR_END, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 9:
-                        move.Add("9");
-                        Tokens.Add(new Token(14, TypeToken.OPERATOR_ASSIGNMENT, Char.ToString(), (position, position)));
-                        move.Add("OUT");
+                        Tokens.Add(new Token(TypeToken.OPERATOR_ASSIGNMENT, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
                         break;
                     case 10:
-                        move.Add("ERROR");
-                        Tokens.Add(new Token(15, TypeToken.ERROR, Char.ToString(), (position, position)));
+                        Tokens.Add(new Token(TypeToken.ERROR, Char.ToString(), (position, position)));
                         position++;
                         Status = 0;
+                        break;
+                    case 11:
+                        Tokens.Add(new Token(TypeToken.END, Char.ToString(), (position, position)));
+                        endFound = true;
                         break;
                     default:
                         break;

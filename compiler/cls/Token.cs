@@ -16,20 +16,19 @@ namespace compiler
         COMMA, // запятая
         OPERATOR_END,
         OPERATOR_ASSIGNMENT, // оператор присваивания
-        ERROR
+        ERROR,
+        END
     }
     public  class Token
     {
-        public int Code { get; set; }
         public TypeToken Type {get; set; }
 
         public string Value { get; set; }
 
         public (int,int) Position { get; set; }
 
-        public Token(int code, TypeToken type, string value, (int, int) position)
+        public Token(TypeToken type, string value, (int, int) position)
         {
-            Code = code;
             Type = type;
             Value = value;
             Position = position;
