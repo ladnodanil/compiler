@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace compiler
 {
-    public class Error:Exception
+    public class Error
     {
-        public string ErrorValue;
+        public string Message { get; set; }
+        public string Fragment { get; set; }
+        public (int start, int end) Position { get; set; }
 
-        public int startPos;
-        public int endPos;
-        public Error(string message, string value, (int, int) pos) : base(message)
+        public Error(string message, string fragment, (int start, int end) position)
         {
-            ErrorValue = value;
-            startPos = pos.Item1;
-            endPos = pos.Item2 + 1;
+            Message = message;
+            Fragment = fragment;
+            Position = (position.start, position.end + 1);
         }
     }
 }

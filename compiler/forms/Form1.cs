@@ -579,20 +579,20 @@ namespace compiler
                 Parser parser = new Parser(richTextBox.Text);
                 parser.Parse();
                 List<Error> errors = parser.errors;
-                //errors.AddRange(parser.Lexer.Errors);
-                errors.OrderBy(x => x.startPos);
+                errors.AddRange(parser.Lexer.Errors);
+                errors = errors.OrderBy(x => x.Position.start).ToList();
                 dataGridView1.DataSource = errors.Select(ee => new
                 {
                     Сообщение = ee.Message,
-                    НеожиданноеЗначение = ee.ErrorValue,
-                    Местоположение = $"({ee.startPos + 1},{ee.endPos})"
+                    НеожиданноеЗначение = ee.Fragment,
+                    Местоположение = $"({ee.Position.start + 1},{ee.Position.end})"
                 }).ToList();
                 richTextBox.SelectAll();
                 richTextBox.SelectionBackColor = richTextBox.BackColor;
 
                 foreach (var error in errors)
                 {
-                    richTextBox.Select(error.startPos, error.endPos - error.startPos);
+                    richTextBox.Select(error.Position.start, error.Position.end - error.Position.start);
                     richTextBox.SelectionBackColor = Color.Red;
                 }
             }

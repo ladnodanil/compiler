@@ -16,8 +16,10 @@ namespace compiler
         public string CodeText;
 
         public int Status;
+        public int prevStatus;
 
         public List<Token> Tokens = new List<Token>();
+        public List<Error> Errors = new List<Error>();
 
 
         public List<string> KeyWords = new List<string>
@@ -40,13 +42,13 @@ namespace compiler
             int endPosition = 0;
             char Char = ' ';
 
-
+            int errorStart = 0;
             string value = "";
+            string errorFragment = "";
             bool endFound = false;
             while (!endFound)
             {
                 Char = position < CodeText.Length ? CodeText[position] : '\0';
-
                 switch (Status)
                 {
                     case 0:
@@ -95,6 +97,9 @@ namespace compiler
                                 break;
                             default:
                                 Status = 10;
+                                errorFragment += Char;
+                                errorStart = position;
+                                position++;
                                 break;
                         }
                         break;
@@ -104,6 +109,11 @@ namespace compiler
                             value += Char;
                             position++;
                         }
+                        else if (IsError(Char))
+                        {
+                            errorStart = position;
+                            Status = 10;
+                        }
                         else
                         {
                             endPosition = position - 1;
@@ -112,7 +122,7 @@ namespace compiler
                                 Tokens.Add(new Token(TypeToken.KEYWORD, value, (beginPosition, endPosition)));
                                 if (value == "new")
                                 {
-                                    if (position < CodeText.Length && CodeText[position] == ' ')
+                                    if (position < CodeText.Length && Char == ' ')
                                     {
                                         Status = 2;
                                     }
@@ -175,9 +185,18 @@ namespace compiler
                         Status = 0;
                         break;
                     case 10:
-                        Tokens.Add(new Token(TypeToken.ERROR, Char.ToString(), (position, position)));
-                        position++;
-                        Status = 0;
+                        if (position < CodeText.Length && IsError(Char))
+                        {
+                            errorFragment += Char;
+                            position++;
+                        }
+                        else
+                        {
+                            Errors.Add(new Error("Ошибочный фрагмент", errorFragment, (errorStart, position - 1)));
+                            errorFragment = "";
+                            Status = prevStatus;
+                        }
+
                         break;
                     case 11:
                         Tokens.Add(new Token(TypeToken.END, Char.ToString(), (position, position)));
@@ -186,9 +205,33 @@ namespace compiler
                     default:
                         break;
                 }
+                if (Status != 10)
+                {
+                    prevStatus = Status;
+                }
             }
 
             return Tokens;
+        }
+
+        private bool IsError(char c)
+        {
+            if (!((c >= 'A' && c <= 'Z') ||
+                (c >= 'a' && c <= 'z') ||
+                char.IsDigit(c) ||
+                c == '_' ||
+                c == ' ' ||
+                c == '<' ||
+                c == '>' ||
+                c == '(' ||
+                c == ')' ||
+                c == ',' ||
+                c == ';' ||
+                c == '=') && c != '\0')
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
