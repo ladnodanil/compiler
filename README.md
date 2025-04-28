@@ -39,5 +39,9 @@
 
 
 # Тестовые примеры
+![image](https://github.com/user-attachments/assets/9c2b69f4-b7bc-4cc4-8dc3-4924dc2b2654)
+![image](https://github.com/user-attachments/assets/a5bfe9bc-2547-48ac-91cd-82a85f87936d)
+![image](https://github.com/user-attachments/assets/d2a40ba7-810a-45aa-bd47-54997e17baca)
+
 
 
