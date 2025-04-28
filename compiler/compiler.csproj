@@ -63,7 +63,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="cls\Parser.cs" />
-    <Compile Include="POLIZ.cs" />
+    <Compile Include="cls\POLIZ.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="cls\Lexer.cs" />
