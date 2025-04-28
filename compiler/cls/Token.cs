@@ -8,14 +8,13 @@ namespace compiler
 {
     public enum TypeToken
     {
-        ID, 
-        KEYWORD,
-        DELIMETER, //разделитель
-        OPERATOR_COMPARSION, // оператор сравнения
-        PARENTHESIS, // круглая скобка
-        COMMA, // запятая
-        OPERATOR_END,
-        OPERATOR_ASSIGNMENT, // оператор присваивания
+        PLUS,//+
+        MINUS,// -
+        MULTIPLICATION,//*
+        DIVISION, // /
+        OPEN_PARENTHESIS, // круглая скобка
+        CLOSE_PARENTHESIS,
+        NUMBER,
         ERROR,
         END
     }

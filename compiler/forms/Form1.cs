@@ -24,7 +24,7 @@ namespace compiler
         public Form1()
         {
             InitializeComponent();
-            StatusTime(); 
+            StatusTime();
             this.DragDrop += Form1_DragDrop;
             this.DragEnter += Form1_DragEnter;
             KeyPreview = true;
@@ -44,7 +44,7 @@ namespace compiler
             else if (e.Control && e.KeyCode == Keys.O)
             {
                 OpenFile();
-                
+
             }
         }
 
@@ -53,11 +53,11 @@ namespace compiler
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                e.Effect = DragDropEffects.Copy; 
+                e.Effect = DragDropEffects.Copy;
             }
             else
             {
-                e.Effect = DragDropEffects.None; 
+                e.Effect = DragDropEffects.None;
             }
         }
 
@@ -69,9 +69,9 @@ namespace compiler
 
                 foreach (string file in files)
                 {
-                    if (Path.GetExtension(file).Equals(".txt", StringComparison.OrdinalIgnoreCase)) 
+                    if (Path.GetExtension(file).Equals(".txt", StringComparison.OrdinalIgnoreCase))
                     {
-                        AddPage(file); 
+                        AddPage(file);
                     }
                     else
                     {
@@ -128,7 +128,7 @@ namespace compiler
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string filename = openFileDialog1.FileName;
-                AddPage(filename); 
+                AddPage(filename);
             }
         }
 
@@ -156,7 +156,7 @@ namespace compiler
                 Tag = "LineNumbers"
             };
 
-           
+
             RichTextBox richTextBox = new RichTextBox
             {
                 Dock = DockStyle.Fill,
@@ -183,7 +183,7 @@ namespace compiler
         }
 
         private void RichTextBox_MouseWheel(object sender, MouseEventArgs e)
-        { 
+        {
             if (Control.ModifierKeys == Keys.Control)
             {
                 ((HandledMouseEventArgs)e).Handled = true;
@@ -341,7 +341,7 @@ namespace compiler
         {
             if (tabControl1.SelectedTab != null)
             {
-                var result = MessageBox.Show($"Сохранить изменения в {tabControl1.SelectedTab.Text} ?","Внимание!",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+                var result = MessageBox.Show($"Сохранить изменения в {tabControl1.SelectedTab.Text} ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     SaveFile();
@@ -555,12 +555,12 @@ namespace compiler
         private void helpToolStripButton_Click(object sender, EventArgs e)
         {
             Help();
-            Dictionary<int, string> My=new Dictionary<int, string>();
+            Dictionary<int, string> My = new Dictionary<int, string>();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var result = MessageBox.Show("Сохранить перед выходом все изменения в файлах?","Внимание",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+            var result = MessageBox.Show("Сохранить перед выходом все изменения в файлах?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
                 foreach (var tabPage in tabControl1.TabPages)
@@ -577,52 +577,55 @@ namespace compiler
                 dataGridView1.Columns.Clear();
                 RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
                 Parser parser = new Parser(richTextBox.Text);
-                parser.Parse();
-                List<Error> errors = parser.errors;
-                errors.AddRange(parser.Lexer.Errors);
-                errors = errors.OrderBy(x => x.Position.start).ToList();
-                dataGridView1.DataSource = errors.Select(ee => new
+                if (parser.Tokens.Count != 0)
                 {
-                    Сообщение = ee.Message,
-                    НеожиданноеЗначение = ee.Fragment,
-                    Местоположение = $"({ee.Position.start + 1},{ee.Position.end})"
-                }).ToList();
-                richTextBox.SelectAll();
-                richTextBox.SelectionBackColor = richTextBox.BackColor;
+                    parser.Parse();
 
-                foreach (var error in errors)
-                {
-                    richTextBox.Select(error.Position.start, error.Position.end - error.Position.start);
-                    richTextBox.SelectionBackColor = Color.Red;
+                    List<Error> errors = parser.errors;
+                    errors.AddRange(parser.Lexer.Errors);
+                    errors = errors.OrderBy(x => x.Position.start).ToList();
+                    dataGridView1.DataSource = errors.Select(ee => new
+                    {
+                        Сообщение = ee.Message,
+                        НеожиданноеЗначение = ee.Fragment,
+                        Местоположение = $"({ee.Position.start + 1},{ee.Position.end})"
+                    }).ToList();
+                    richTextBox.SelectAll();
+                    richTextBox.SelectionBackColor = richTextBox.BackColor;
+
+                    foreach (var error in errors)
+                    {
+                        richTextBox.Select(error.Position.start, error.Position.end - error.Position.start);
+                        richTextBox.SelectionBackColor = Color.Red;
+                    }
+                    richTextBox.Select(0, 0);
+                    richTextBox.SelectionBackColor = richTextBox.BackColor;
+                    if (errors.Count == 0)
+                    {
+                        richTextBox1.Clear();
+
+
+                        POLIZ poliz = new POLIZ(parser.Tokens);
+                        poliz.ConvertToPOLIZ();
+                        richTextBox1.Text = $"Результат: {poliz.CalculatePOLIZ()}\n";
+                        foreach (var token in poliz.outToken)
+                        {
+                            richTextBox1.AppendText(token.Value);
+                        }
+                        tabControl2.SelectedTab = tabPage2;
+
+
+                    }
+                    else
+                    {
+                        tabControl2.SelectedTab = tabPage1;
+                    }
                 }
+                
             }
+
         }
-        private string TranslateType(TypeToken type)
-        {
-            switch (type)
-            {
-                case TypeToken.KEYWORD:
-                    return "ключевое слово";
-                case TypeToken.ID:
-                    return "идентификатор";
-                case TypeToken.DELIMETER:
-                    return "разделитель";
-                case TypeToken.OPERATOR_COMPARSION:
-                    return "оператор сравнения";
-                case TypeToken.PARENTHESIS:
-                    return "скобка";
-                case TypeToken.COMMA:
-                    return "запятая";
-                case TypeToken.OPERATOR_END:
-                    return "конец оператора";
-                case TypeToken.OPERATOR_ASSIGNMENT:
-                    return "оператор присваивания";
-                case TypeToken.ERROR:
-                    return "недопустимый символ";
-                default:
-                    return"ошибка";
-            }
-        }
+
 
         private void taskToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -666,7 +669,7 @@ namespace compiler
         void OpenHtmlWithEmbeddedImages()
         {
             // Исходный HTML (строка из ресурсов)
-            string html = Properties.Resources.Метод_анализа; 
+            string html = Properties.Resources.Метод_анализа;
 
             // Заменяем пути к изображениям на встроенные base64
             html = html.Replace("Диаграмма состояния сканера.png", EmbedImage(Properties.Resources.Диаграмма_состояния_сканера));
