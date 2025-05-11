@@ -93,8 +93,12 @@ int
 18)	`<OPEN_PAREN>`→’(‘`<CLOSE_PAREN>`
 19)	`<CLOSE_PAREN>`→’)’`<END>`
 20)	`<END>`→’;’
+# Граф сканера[Uploading Диаграмма состояния сканера.drawio…]()
+
 
 # Граф конечного автомата
+![Диаграмма состояния сканера](https://github.com/user-attachments/assets/dcad6564-1c75-4abc-8449-9e157d1ca348)
+
 ![graph](https://raw.githubusercontent.com/ladnodanil/compiler/laba3/compiler/icon/%D0%B3%D1%80%D0%B0%D1%84%20%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B0.png)
 
 
