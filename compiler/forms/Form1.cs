@@ -580,8 +580,12 @@ namespace compiler
                 {
                     dataGridView1.Columns.Clear();
                     RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
+
+                    
                     RegexAnalyze regexAnalyze = new RegexAnalyze(richTextBox.Text, pattern);
-                    dataGridView1.DataSource = regexAnalyze.GetMatchInfoList().Select(ee => new
+                    var matches = regexAnalyze.GetMatchInfoList();
+
+                    dataGridView1.DataSource = matches.Select(ee => new
                     {
                         Значение = ee.Value,
                         Местоположение = $"({ee.Position.Item1 + 1},{ee.Position.Item2 + 1})"
@@ -590,8 +594,7 @@ namespace compiler
                     richTextBox.SelectAll();
                     richTextBox.SelectionColor = richTextBox.ForeColor;
 
-
-                    foreach (var str in regexAnalyze.GetMatchInfoList())
+                    foreach (var str in matches)
                     {
                         richTextBox.Select(str.Position.Item1, str.Position.Item2 - str.Position.Item1 + 1);
                         richTextBox.SelectionColor = Color.Blue;
@@ -602,12 +605,9 @@ namespace compiler
                 }
                 else
                 {
-                    MessageBox.Show("Выберите регулярное выражение","Внимание!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    MessageBox.Show("Выберите регулярное выражение", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                
-
             }
-
         }
 
 
@@ -676,20 +676,21 @@ namespace compiler
 
         private void hexToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pattern = "[A-F0-9]{6}";
+            pattern = @"\b[A-Fa-f0-9]{6}\b";
             tabPage1.Text = $"Совпадения {hexToolStripMenuItem.Text}";
         }
 
         private void masterCardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pattern = "5[1-5][0-9]{2}(-[0-9]{4}){3}";
+            pattern = @"\b5[1-5][0-9]{2}(-[0-9]{4}){3}\b";
             tabPage1.Text = $"Совпадения {masterCardToolStripMenuItem.Text}";
         }
 
         private void passwordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabPage1.Text = $"Совпадения {passwordToolStripMenuItem.Text}";
-            pattern = "(?=.*[А-Я])(?=.*[а-я])(?=.*[0-9])(?=.*[#?!|/@$%\\^&*\\-_])[А-Яа-яA-Za-z0-9#?!|/@$%\\^&*\\-_]{8,}";
+            pattern = @"(?=.*[А-Я])(?=.*[а-я])(?=.*[0-9])(?=.*[#?!|@/$%^&*\-_])[А-Яа-я0-9#?!|@$%^&*\-_]{8,}";
+
         }
     }
 }
