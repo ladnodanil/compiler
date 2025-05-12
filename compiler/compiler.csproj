@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cls\Error.cs" />
     <Compile Include="forms\AboutFormcs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,18 +61,15 @@
     <Compile Include="forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="cls\Parser.cs" />
-    <Compile Include="cls\POLIZ.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="cls\Lexer.cs" />
     <Compile Include="forms\SettingsFormcs.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="forms\SettingsFormcs.Designer.cs">
       <DependentUpon>SettingsFormcs.cs</DependentUpon>
     </Compile>
-    <Compile Include="cls\Token.cs" />
+    <Compile Include="cls\RegexAnalyze.cs" />
     <EmbeddedResource Include="forms\AboutFormcs.resx">
       <DependentUpon>AboutFormcs.cs</DependentUpon>
     </EmbeddedResource>

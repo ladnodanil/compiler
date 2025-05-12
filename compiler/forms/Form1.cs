@@ -15,12 +15,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using System.Xml.Schema;
 
 namespace compiler
 {
     public partial class Form1 : Form
     {
-        private Lexer Lexer;
+        private string pattern;
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace compiler
             this.DragEnter += Form1_DragEnter;
             KeyPreview = true;
             KeyDown += Form1_KeyDown;
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -574,54 +576,36 @@ namespace compiler
         {
             if (tabControl1.SelectedTab != null)
             {
-                dataGridView1.Columns.Clear();
-                RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
-                Parser parser = new Parser(richTextBox.Text);
-                if (parser.Tokens.Count != 0)
+                if (pattern != null)
                 {
-                    parser.Parse();
-
-                    List<Error> errors = parser.errors;
-                    errors.AddRange(parser.Lexer.Errors);
-                    errors = errors.OrderBy(x => x.Position.start).ToList();
-                    dataGridView1.DataSource = errors.Select(ee => new
+                    dataGridView1.Columns.Clear();
+                    RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
+                    RegexAnalyze regexAnalyze = new RegexAnalyze(richTextBox.Text, pattern);
+                    dataGridView1.DataSource = regexAnalyze.GetMatchInfoList().Select(ee => new
                     {
-                        Сообщение = ee.Message,
-                        НеожиданноеЗначение = ee.Fragment,
-                        Местоположение = $"({ee.Position.start + 1},{ee.Position.end})"
+                        Значение = ee.Value,
+                        Местоположение = $"({ee.Position.Item1 + 1},{ee.Position.Item2 + 1})"
                     }).ToList();
+
                     richTextBox.SelectAll();
-                    richTextBox.SelectionBackColor = richTextBox.BackColor;
+                    richTextBox.SelectionColor = richTextBox.ForeColor;
 
-                    foreach (var error in errors)
+
+                    foreach (var str in regexAnalyze.GetMatchInfoList())
                     {
-                        richTextBox.Select(error.Position.start, error.Position.end - error.Position.start);
-                        richTextBox.SelectionBackColor = Color.Red;
+                        richTextBox.Select(str.Position.Item1, str.Position.Item2 - str.Position.Item1 + 1);
+                        richTextBox.SelectionColor = Color.Blue;
                     }
+
                     richTextBox.Select(0, 0);
-                    richTextBox.SelectionBackColor = richTextBox.BackColor;
-                    if (errors.Count == 0)
-                    {
-                        richTextBox1.Clear();
-
-
-                        POLIZ poliz = new POLIZ(parser.Tokens);
-                        poliz.ConvertToPOLIZ();
-                        richTextBox1.Text = $"Результат: {poliz.CalculatePOLIZ()}\n";
-                        foreach (var token in poliz.outToken)
-                        {
-                            richTextBox1.AppendText(token.Value);
-                        }
-                        tabControl2.SelectedTab = tabPage2;
-
-
-                    }
-                    else
-                    {
-                        tabControl2.SelectedTab = tabPage1;
-                    }
+                    richTextBox.SelectionColor = richTextBox.ForeColor;
+                }
+                else
+                {
+                    MessageBox.Show("Выберите регулярное выражение","Внимание!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
                 
+
             }
 
         }
@@ -688,6 +672,24 @@ namespace compiler
         private void codeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenHTML(Properties.Resources.Листинг_программы);
+        }
+
+        private void hexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pattern = "[A-F0-9]{6}";
+            tabPage1.Text = $"Совпадения {hexToolStripMenuItem.Text}";
+        }
+
+        private void masterCardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pattern = "5[1-5][0-9]{2}(-[0-9]{4}){3}";
+            tabPage1.Text = $"Совпадения {masterCardToolStripMenuItem.Text}";
+        }
+
+        private void passwordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabPage1.Text = $"Совпадения {passwordToolStripMenuItem.Text}";
+            pattern = "(?=.*[А-Я])(?=.*[а-я])(?=.*[0-9])(?=.*[#?!|/@$%\\^&*\\-_])[А-Яа-яA-Za-z0-9#?!|/@$%\\^&*\\-_]{8,}";
         }
     }
 }
