@@ -75,6 +75,10 @@
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.видToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.masterCardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.passwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
@@ -86,10 +90,6 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.regexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.masterCardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.passwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -492,6 +492,7 @@
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(55, 24);
             this.toolStripMenuItem3.Text = "Пуск";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -505,14 +506,14 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.helpToolStripMenuItem.Text = "Вызов справки";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // AboutToolStripMenuItem
             // 
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.AboutToolStripMenuItem.Text = "О программе";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
@@ -527,9 +528,40 @@
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
             this.fontToolStripMenuItem.Text = "Изменить шрифт";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
+            // 
+            // regexToolStripMenuItem
+            // 
+            this.regexToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hexToolStripMenuItem,
+            this.masterCardToolStripMenuItem,
+            this.passwordToolStripMenuItem});
+            this.regexToolStripMenuItem.Name = "regexToolStripMenuItem";
+            this.regexToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
+            this.regexToolStripMenuItem.Text = "Регулярные выражение";
+            // 
+            // hexToolStripMenuItem
+            // 
+            this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
+            this.hexToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.hexToolStripMenuItem.Text = "HEX";
+            this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
+            // 
+            // masterCardToolStripMenuItem
+            // 
+            this.masterCardToolStripMenuItem.Name = "masterCardToolStripMenuItem";
+            this.masterCardToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.masterCardToolStripMenuItem.Text = "MasterCard";
+            this.masterCardToolStripMenuItem.Click += new System.EventHandler(this.masterCardToolStripMenuItem_Click);
+            // 
+            // passwordToolStripMenuItem
+            // 
+            this.passwordToolStripMenuItem.Name = "passwordToolStripMenuItem";
+            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.passwordToolStripMenuItem.Text = "Password";
+            this.passwordToolStripMenuItem.Click += new System.EventHandler(this.passwordToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -597,37 +629,6 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Width = 125;
-            // 
-            // regexToolStripMenuItem
-            // 
-            this.regexToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hexToolStripMenuItem,
-            this.masterCardToolStripMenuItem,
-            this.passwordToolStripMenuItem});
-            this.regexToolStripMenuItem.Name = "regexToolStripMenuItem";
-            this.regexToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
-            this.regexToolStripMenuItem.Text = "Регулярные выражение";
-            // 
-            // hexToolStripMenuItem
-            // 
-            this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
-            this.hexToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.hexToolStripMenuItem.Text = "HEX";
-            this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
-            // 
-            // masterCardToolStripMenuItem
-            // 
-            this.masterCardToolStripMenuItem.Name = "masterCardToolStripMenuItem";
-            this.masterCardToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.masterCardToolStripMenuItem.Text = "MasterCard";
-            this.masterCardToolStripMenuItem.Click += new System.EventHandler(this.masterCardToolStripMenuItem_Click);
-            // 
-            // passwordToolStripMenuItem
-            // 
-            this.passwordToolStripMenuItem.Name = "passwordToolStripMenuItem";
-            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.passwordToolStripMenuItem.Text = "Password";
-            this.passwordToolStripMenuItem.Click += new System.EventHandler(this.passwordToolStripMenuItem_Click);
             // 
             // Form1
             // 

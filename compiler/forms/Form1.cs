@@ -581,7 +581,7 @@ namespace compiler
                     dataGridView1.Columns.Clear();
                     RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
 
-                    
+
                     RegexAnalyze regexAnalyze = new RegexAnalyze(richTextBox.Text, pattern);
                     var matches = regexAnalyze.GetMatchInfoList();
 
@@ -652,17 +652,14 @@ namespace compiler
 
         void OpenHtmlWithEmbeddedImages()
         {
-            // Исходный HTML (строка из ресурсов)
             string html = Properties.Resources.Метод_анализа;
 
-            // Заменяем пути к изображениям на встроенные base64
             html = html.Replace("Диаграмма состояния сканера.png", EmbedImage(Properties.Resources.Диаграмма_состояния_сканера));
             html = html.Replace("граф конечного автомата.png", EmbedImage(Properties.Resources.граф_конечного_автомата));
 
             string tempFile = Path.Combine(Path.GetTempPath(), "метод_анализа.html");
             File.WriteAllText(tempFile, html, Encoding.UTF8);
 
-            // Открываем в браузере
             Process.Start(new ProcessStartInfo
             {
                 FileName = tempFile,
@@ -691,6 +688,36 @@ namespace compiler
             tabPage1.Text = $"Совпадения {passwordToolStripMenuItem.Text}";
             pattern = @"(?=.*[А-Я])(?=.*[а-я])(?=.*[0-9])(?=.*[#?!|@/$%^&*\-_])[А-Яа-я0-9#?!|@$%^&*\-_]{8,}";
 
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab != null)
+            {
+                dataGridView1.Columns.Clear();
+                RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
+
+                Parser parser = new Parser(richTextBox.Text);
+                parser.Parse();
+
+                dataGridView1.DataSource = parser.values.Select(ee => new
+                {
+                    Значение = ee.Item1,
+                    Местоположение = $"({ee.Item2 + 1},{ee.Item3 + 1})"
+                }).ToList();
+
+                richTextBox.SelectAll();
+                richTextBox.SelectionColor = richTextBox.ForeColor;
+
+                foreach (var str in parser.values)
+                {
+                    richTextBox.Select(str.Item2, str.Item3 - str.Item2 + 1);
+                    richTextBox.SelectionColor = Color.Blue;
+                }
+
+                richTextBox.Select(0, 0);
+                richTextBox.SelectionColor = richTextBox.ForeColor;
+            }
         }
     }
 }
