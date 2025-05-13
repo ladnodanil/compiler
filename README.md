@@ -28,4 +28,8 @@ MasterCard
 Password
 ![image](https://github.com/user-attachments/assets/0a58f516-9171-4325-9f44-f237cf4a2375)
 
+# Граф конечного автомата
+
+![ГрафПароль](https://github.com/user-attachments/assets/9e3c039c-2ebc-48cb-bc99-b47ccd8e8527)
+
 
