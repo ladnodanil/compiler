@@ -47,6 +47,12 @@ L = { "while" C "do" S ";" | C ∈ Cond, S ∈ Stmt }
 while a < b and b <= c do b=b+c-20;
 ```
 Схема вызова функций:
-[]
+![image](https://github.com/user-attachments/assets/4fec6057-d176-4109-aed5-1028ca327167)
+
 
 ## Тестовые примеры
+![image](https://github.com/user-attachments/assets/39be4ce4-5358-4e3f-a7d7-89620485212f)
+![image](https://github.com/user-attachments/assets/0931229d-84a7-42ba-a8cd-3db30a36a361)
+![image](https://github.com/user-attachments/assets/fcbf9d7c-e961-4050-8993-27500457a718)
+
+
