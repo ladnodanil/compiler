@@ -90,6 +90,10 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -100,6 +104,9 @@
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -132,6 +139,8 @@
             // 
             // tabControl2
             // 
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Controls.Add(this.tabPage1);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
@@ -148,7 +157,7 @@
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(1024, 140);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Совпадения";
+            this.tabPage1.Text = "Токены";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -538,6 +547,7 @@
             this.hexToolStripMenuItem,
             this.masterCardToolStripMenuItem,
             this.passwordToolStripMenuItem});
+            this.regexToolStripMenuItem.Enabled = false;
             this.regexToolStripMenuItem.Name = "regexToolStripMenuItem";
             this.regexToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.regexToolStripMenuItem.Text = "Регулярные выражение";
@@ -545,21 +555,21 @@
             // hexToolStripMenuItem
             // 
             this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
-            this.hexToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.hexToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.hexToolStripMenuItem.Text = "HEX";
             this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
             // 
             // masterCardToolStripMenuItem
             // 
             this.masterCardToolStripMenuItem.Name = "masterCardToolStripMenuItem";
-            this.masterCardToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.masterCardToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.masterCardToolStripMenuItem.Text = "MasterCard";
             this.masterCardToolStripMenuItem.Click += new System.EventHandler(this.masterCardToolStripMenuItem_Click);
             // 
             // passwordToolStripMenuItem
             // 
             this.passwordToolStripMenuItem.Name = "passwordToolStripMenuItem";
-            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
+            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.passwordToolStripMenuItem.Text = "Password";
             this.passwordToolStripMenuItem.Click += new System.EventHandler(this.passwordToolStripMenuItem_Click);
             // 
@@ -630,6 +640,50 @@
             this.Column1.ReadOnly = true;
             this.Column1.Width = 125;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dataGridView2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(1024, 140);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Ошибки";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(1024, 140);
+            this.dataGridView2.TabIndex = 1;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.richTextBox1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1024, 140);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Вывод";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(1024, 140);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -657,6 +711,9 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -724,6 +781,10 @@
         private System.Windows.Forms.ToolStripMenuItem hexToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem masterCardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem passwordToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

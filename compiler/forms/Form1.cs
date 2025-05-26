@@ -576,37 +576,45 @@ namespace compiler
         {
             if (tabControl1.SelectedTab != null)
             {
-                if (pattern != null)
+
+                dataGridView1.Columns.Clear();
+                dataGridView2.Columns.Clear();
+                RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
+
+                Parser parser = new Parser(richTextBox.Text);
+                parser.Parse();
+
+                Lexer lexer = new Lexer(richTextBox.Text);
+                lexer.Analyze();
+
+                dataGridView1.DataSource = lexer.Tokens.Select(ee => new
                 {
-                    dataGridView1.Columns.Clear();
-                    RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
+                    Тип = ee.Type.ToString(),
+                    Значение = ee.Value,
+                    Местоположение = $"({ee.Position.Item1 + 1},{ee.Position.Item2 + 1})"
+                }).ToList();
 
-
-                    RegexAnalyze regexAnalyze = new RegexAnalyze(richTextBox.Text, pattern);
-                    var matches = regexAnalyze.GetMatchInfoList();
-
-                    dataGridView1.DataSource = matches.Select(ee => new
-                    {
-                        Значение = ee.Value,
-                        Местоположение = $"({ee.Position.Item1 + 1},{ee.Position.Item2 + 1})"
-                    }).ToList();
-
-                    richTextBox.SelectAll();
-                    richTextBox.SelectionColor = richTextBox.ForeColor;
-
-                    foreach (var str in matches)
-                    {
-                        richTextBox.Select(str.Position.Item1, str.Position.Item2 - str.Position.Item1 + 1);
-                        richTextBox.SelectionColor = Color.Blue;
-                    }
-
-                    richTextBox.Select(0, 0);
-                    richTextBox.SelectionColor = richTextBox.ForeColor;
-                }
-                else
+                List<Error> errors = parser.Errors;
+                errors.AddRange(parser.Lexer.Errors);
+                errors = errors.OrderBy(x => x.Position.start).ToList();
+                dataGridView2.DataSource = errors.Select(ee => new
                 {
-                    MessageBox.Show("Выберите регулярное выражение", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Сообщение = ee.Message,
+                    НеожиданноеЗначение = ee.Fragment,
+                    Местоположение = $"({ee.Position.start + 1},{ee.Position.end})"
+                }).ToList();
+                richTextBox.SelectAll();
+                richTextBox.SelectionBackColor = richTextBox.BackColor;
+
+                foreach (var error in errors)
+                {
+                    richTextBox.Select(error.Position.start, error.Position.end - error.Position.start);
+                    richTextBox.SelectionBackColor = Color.Red;
                 }
+                richTextBox.Select(0, 0);
+                richTextBox.SelectionBackColor = richTextBox.BackColor;
+                richTextBox1.Clear();
+                richTextBox1.Text = string.Join(") --- (", parser.Log);
             }
         }
 
@@ -692,32 +700,7 @@ namespace compiler
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab != null)
-            {
-                dataGridView1.Columns.Clear();
-                RichTextBox richTextBox = ((Panel)tabControl1.SelectedTab.Controls[0]).Controls[0] as RichTextBox;
 
-                Parser parser = new Parser(richTextBox.Text);
-                parser.Parse();
-
-                dataGridView1.DataSource = parser.values.Select(ee => new
-                {
-                    Значение = ee.Item1,
-                    Местоположение = $"({ee.Item2 + 1},{ee.Item3 + 1})"
-                }).ToList();
-
-                richTextBox.SelectAll();
-                richTextBox.SelectionColor = richTextBox.ForeColor;
-
-                foreach (var str in parser.values)
-                {
-                    richTextBox.Select(str.Item2, str.Item3 - str.Item2 + 1);
-                    richTextBox.SelectionColor = Color.Blue;
-                }
-
-                richTextBox.Select(0, 0);
-                richTextBox.SelectionColor = richTextBox.ForeColor;
-            }
         }
     }
 }
